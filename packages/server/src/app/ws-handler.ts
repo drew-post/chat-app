@@ -17,7 +17,7 @@ export class WsHandler {
 
   onSocketConnected(socket: WebSocket, request: IncomingMessage) {
     console.log('New websocket connection!');
-    this.userManager.add(socket);
+    this.userManager.add(socket, request);
 
     socket.on('message', (data) => this.onSocketMessage(socket, data));
     socket.on('close', (code, reason) => this.onSocketClosed(socket, code, reason));
@@ -27,8 +27,7 @@ export class WsHandler {
     const payload: WsMessage = JSON.parse(`${data}`);
     console.log('Received: ', payload);
 
-    this.userManager.send(socket, {event: 'chat', contents: 'Still here!'});
-
+    this.userManager.sendToAll(payload);
   }
 
   onSocketClosed(socket: WebSocket, code: number, reason: Buffer) {
