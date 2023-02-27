@@ -1,4 +1,4 @@
-import { SystemNotice, User, WsMessage } from "@websocket/types";
+import { LoginMessage, SystemNotice, User, WsMessage } from "@websocket/types";
 import { IncomingMessage } from "http";
 import { WebSocket } from "ws";
 
@@ -23,6 +23,14 @@ export class UserManager {
     }
 
     this.sendToAll(systemNotice);
+
+    const loginMessage: LoginMessage = {
+      event: 'login',
+      user: user
+    }
+
+    socket.send(JSON.stringify(loginMessage));
+
     this.sockets.set(socket, user);
   }
 
