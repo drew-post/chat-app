@@ -1,4 +1,4 @@
-import { LoginMessage, SystemNotice, User, WsMessage } from "@websocket/types";
+import { ChatMessage, ChatRelayMessage, LoginMessage, SystemNotice, User, WsMessage } from "@websocket/types";
 import { IncomingMessage } from "http";
 import { WebSocket } from "ws";
 
@@ -35,6 +35,14 @@ export class UserManager {
   }
 
   remove(socket: WebSocket) {
+    const name = this.sockets.get(socket).name;
+
+    const systemNotice: SystemNotice = {
+      event: 'systemNotice',
+      contents: `${name} has left the chat`
+    }
+
+    this.sendToAll(systemNotice);
     this.sockets.delete(socket);
   }
 
@@ -50,5 +58,15 @@ export class UserManager {
         socket.send(data);
       }
     });
+  }
+
+  relayChat(from: WebSocket, chatMsg: ChatMessage) {
+    const relayMsg: ChatRelayMessage = {
+      event: 'chatRelay',
+      contents: chatMsg.contents,
+      author: this.sockets.get(from)
+    };
+
+    this.sendToAll(relayMsg);
   }
 }
