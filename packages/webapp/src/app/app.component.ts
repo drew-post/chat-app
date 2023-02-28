@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   title = 'webapp';
 
   messages: ChatRelayMessage[] = [];
+  users: User[] = [];
   currentUser: User;
 
   constructor(private appService: AppService, private snackbar: MatSnackBar) {}
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     this.appService.chatMessage$.subscribe(msg => this.messages = [...this.messages, msg]);
     this.appService.user$.subscribe(user => this.currentUser = user);
     this.appService.systemNotice$.subscribe(notice => this.onSystemNotice(notice));
+    this.appService.userList$.subscribe(userList => this.users = userList);
   }
 
   connect(userNameInput: HTMLInputElement) {

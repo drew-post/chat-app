@@ -1,24 +1,34 @@
-import { User } from "./user";
+import { User } from './user';
 
-export type WsMessage = ChatMessage | ChatRelayMessage | SystemNotice | LoginMessage;
+export type WsMessage =
+  | ChatMessage
+  | ChatRelayMessage
+  | SystemNotice
+  | LoginMessage
+  | UserListMessage;
 
 export interface ChatMessage {
-  event: 'chat',
-  contents: string
+  event: 'chat';
+  contents: string;
 }
 
 export interface ChatRelayMessage {
-  event: 'chatRelay',
-  contents: string,
-  author: User
+  event: 'chatRelay';
+  contents: string;
+  author: User;
 }
 
 export interface SystemNotice {
-  event: 'systemNotice',
-  contents: string
+  event: 'systemNotice';
+  contents: string;
 }
 
 export interface LoginMessage {
-  event: 'login',
-  user: User
+  event: 'login';
+  user: User;
+}
+
+export interface UserListMessage {
+  event: 'userList';
+  users: User[];
 }

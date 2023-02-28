@@ -7,11 +7,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 import { AppService } from './app.service';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, MatCardModule, MatInputModule, MatButtonModule, MatSnackBarModule],
+  imports: [BrowserModule, BrowserAnimationsModule, MatCardModule, MatInputModule, MatButtonModule, MatSnackBarModule, MatListModule],
   providers: [AppService],
   bootstrap: [AppComponent],
 })
